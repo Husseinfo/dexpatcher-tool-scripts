@@ -11,7 +11,7 @@ java -jar "$dxp_dexpatcher_jar" --verbose --output patched.dex source.dex patch.
 #d2j-dex2jar.sh --force --output patched.jar patched.dex
 
 cp patched.dex decode/classes.dex
-apktool build --output patched.apk decode/
+apktool build --use-aapt2 --output patched.apk decode/
 
 jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore -storepass android patched.apk key
 
