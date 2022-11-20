@@ -13,11 +13,13 @@ java -jar "$dxp_dexpatcher_jar" --verbose --output patched.dex source.dex patch.
 cp patched.dex decode/classes.dex
 apktool build --use-aapt2 --output patched.apk decode/
 
-jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore -storepass android patched.apk key
+#jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore -storepass android patched.apk key
 
-zipalign -f 4 patched.apk patched-aligned.apk
-rm patched.apk
-mv patched-aligned.apk patched.apk
+apksigner sign -ks keystore -ks-key-alias key patched.apk
+
+# zipalign -f 4 patched.apk patched-aligned.apk
+# rm patched.apk
+# mv patched-aligned.apk patched.apk
 
 echo "dxp-make-patched: done: patched.apk"
 
