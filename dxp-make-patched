@@ -15,11 +15,12 @@ apktool build --use-aapt2 --output patched.apk decode/
 
 #jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore keystore -storepass android patched.apk key
 
+
+zipalign -p -f 4 patched.apk patched-aligned.apk
+mv patched-aligned.apk patched.apk
+
 apksigner sign -ks keystore -ks-key-alias key patched.apk
 
-# zipalign -f 4 patched.apk patched-aligned.apk
-# rm patched.apk
-# mv patched-aligned.apk patched.apk
 
 echo "dxp-make-patched: done: patched.apk"
 
